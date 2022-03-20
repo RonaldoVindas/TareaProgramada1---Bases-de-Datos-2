@@ -1,5 +1,5 @@
 var mysql = require('mysql');
-var conexion= mysql.createConnection({
+var conexion = mysql.createConnection({
     host : 'localhost',
     database : 'po',
     user : 'root',
@@ -8,10 +8,10 @@ var conexion= mysql.createConnection({
 
 conexion.connect(function(err) {
     if (err) {
-        console.error('Error de conexion: ' + err.stack);
+        console.error('Connection Error: ' + err.stack);
         return;
     }
-    console.log('Conectado con el identificador ' + conexion.threadId);
+    console.log('Connected with Identifier: ' + conexion.threadId);
 });
 
 
