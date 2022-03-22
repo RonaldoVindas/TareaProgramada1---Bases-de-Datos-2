@@ -1,4 +1,11 @@
 var mysql = require('mysql');
+const bcrypt = require('bcryptjs');
+const { hash } = require('bcrypt');
+const documentblobUtil = require('image-to-blob');
+
+
+
+
 var conexion = mysql.createConnection({
     host : 'localhost',
     database : 'po',
@@ -11,7 +18,7 @@ conexion.connect(function(err) {
         console.error('Connection Error: ' + err.stack);
         return;
     }
-    console.log('Connected with Identifier: ' + conexion.threadId);
+    console.log('MySQL Successfully Connected with Identifier: ' + conexion.threadId);
 });
 
 
@@ -22,13 +29,14 @@ conexion.connect(function(err) {
 
 //Tabla: User
 function InsertUser(pEmail, pFirstName, pLastname,pPassword,pGeneralDescp, pBirthdate, pPhoto, pVisibility) {
-    conexion.query('call Control_InsertUser(?,?,?,?,?,?,?,?)',[pEmail, pFirstName, pLastname,pPassword,pGeneralDescp, pBirthdate, pPhoto, pVisibility], function (error, results, fields) {
+    conexion.query('call Control_InsertUser(?,?,?,?,?,?,?,?)',[pEmail, pFirstName, pLastname,pPassword,pGeneralDescp, pBirthdate, pPhoto, '1111'], function (error, results, fields) {
         if (error)
             throw error;
         console.log('Successful Procedure Transaction');
 
     });
 }
+
 
 
 function RemoveUser(pEmail) {
@@ -101,7 +109,14 @@ function UpdateUserPhoto(pEmail, pPhoto) {
 }
 
 
-
+function UpdateUserVisibility(pEmail, pVisible) {
+    conexion.query('call Control_user_UpdateVisibility(?,?)', [pEmail, pVisible], function (error, results, fields) {
+        if (error)
+            throw error;
+        console.log('Successful Procedure Transaction');
+         
+    });
+}
 
 
 
@@ -156,9 +171,10 @@ function GetUserFirstName(pEmail) {
         if (error)
         throw error;
 
-    results.forEach(result => {
-        console.log(result);
-    });
+        results.forEach(result => {
+            console.log(result);
+        });
+    
     });
 }
 
@@ -283,10 +299,70 @@ function GetRequestUser2(pEmail) {
     });
 }
 
+function ExistsUserEmail(pEmail) {
+    conexion.query('SELECT ExistsEmailInDatabase(?)', [pEmail], function (error, results, fields) {
+        if (error)
+        throw error;
+
+    results.forEach(result => {
+        console.log(result);
+    });
+    });
+}
+
+
+function EncryptString(pString) {
+    conexion.query('SELECT EncryptString(?)', [pString], function (error, results, fields) {
+        if (error)
+        throw error;
+
+    results.forEach(result => {
+        console.log(result);
+    });
+    });
+}
+
+
+
+
+
+
+
+module.exports = {GetIsFriendUser1, GetIsFriendUser2,GetRequestUser1,GetRequestUser2, GetUserBirthday, GetUserFirstName, GetUserFirstName, GetUserGeneralDescription, GetUserLastName, GetUserPassword, GetUserPhoto,
+GetUserPhoto, GetUserVisibility, InsertUser, InsertUser1IsFriendUser2, InsertUser1RequestUser2, RemoveUser, RemoveUser1IsFriendUser2, RemoveUser1RequestUser2,UpdateUserBirthday, UpdateUserFirstName, UpdateUserGeneralDescription,
+UpdateUserLastName, UpdateUserPassword, UpdateUserPhoto, UpdateUserVisibility, ExistsUserEmail};
+
 
 /*Probablemente necesite otra función para ecriptar strings y poder compararlos con las contraseñas encriptadas para el login*/
 
 ////////////////TEST
 
+//InsertUser(pEmail, pFirstName, pLastname,pPassword,pGeneralDescp, pBirthdate, pPhoto, pVisibility) 
+//InsertUser('Maradona@gmail.com', 'Diego','Maradona', 'CocaCola','Hago goles por comida', '1960-05-05', null, '11101110');
 
-InsertUser('Alvaro@gmail.com', 'Alvaro','Moreira', 'NewConker','Como mocos', '1993-12-01', null, '11101110');
+
+/*
+const testeo = GetUserFirstName('Maradona@gmail.com');
+console.log(testeo);
+
+*/
+///////////////////////////// NOTAS EXTRA ////////////////////////////////////////////////////////
+
+/*
+
+
+// cifra la contraseña
+UserSchema.methods.encryptPassword = async (password) => {
+    const salt =  await bcrypt.genSalt(10);
+    const hash = bcrypt.hash(password, salt);
+    return hash;
+  };
+
+
+//Metodo que encripta la contraseña puesta por el usuario al hacer signin y la compara con la encriptacion en la base de datos 
+  UserSchema.methods.matchPassword = async function (password) {
+    const isPassword = await bcrypt.compare(password, this.password);
+    console.log(isPassword);
+    return isPassword;
+  };
+*/

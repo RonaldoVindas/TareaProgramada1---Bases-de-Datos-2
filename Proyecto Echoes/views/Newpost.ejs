@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New POST</title>
+    <!--bostrap 4.2-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css"
+
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+
+      crossorigin="anonymous">
+    <style>
+            body {
+                background-color: #273450;
+            }
+        </style>
+  </head>
+  <body>
+    <div class="container p-4 ">
+      <div class="row">
+        <div class="col-md-4 offset-md-4">
+          <div class="card">
+            <div class="card-body" style="width: 244px;">
+              <form action="/newpost" method="POST" enctype="multipart/form-data"
+
+                style="width: 314px;">
+                <div class="fron-group" style="width: 301px;"> <textarea name="description"
+
+class="form-control" placeholder="Write a Description..." cols="30" rows="10" style="width: 305px;"></textarea>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="custom-file"> <input name="image" class="custom-file-input"
+
+                      id="inputGroupFile02" placeholder="" style="width: 221px;"
+
+                      type="file"> <label class="custom-file-label"
+
+                      for="inputGroupFile02" aria-describedby="inputGroupFileAddon02"
+
+                      style="left: 0px; width: 299px;">Choose file</label> </div>
+                </div>
+                <div class="form-group"> <button type="submit" class="btn btn-info btn-block"
+
+                    name="NewPostButton" style="width: 304px;"> Do an echo! </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
