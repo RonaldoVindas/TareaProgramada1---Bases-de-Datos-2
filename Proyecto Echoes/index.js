@@ -6,8 +6,7 @@ const neo4jdb = require('./ConexionServidoresBasesDatos/MySQL/MysqlConnect');
 
 
 
-//lo que ocupamos instalar
-//npm i ejs fs-extra morgan multer timeago.js uuid
+
 
 const express = require('express');
 const path =require('path');
@@ -15,11 +14,44 @@ const morgan = require('morgan');
 const multer = require('multer');
 const uuid = require('uuid');
 const { format } = require('timeago.js');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const passport = require('passport');
+const PassportLocal = require('passport-local').Strategy;
 
 
 // Initializations
 const app = express();
 app.use(express.urlencoded({ extended: false}));
+app.use(cookieParser('secret'));
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new PassportLocal(function(username,password,done) {
+    if(username == "andrey192006@hotmail" && password =="654321")
+    return (null,{ email: "andrey192006@hotmail" , name: "alvaro"});
+
+    done(null,false);
+}));
+
+passport.serializeUser(function(user,done){
+    done(null,user.email);
+
+});
+
+passport.deserializeUser(function(email,done){
+    done(null,{email: "andrey192006@hotmail" , name: "alvaro"})
+
+});
+
+
 
 //Settings
 
@@ -30,14 +62,19 @@ app.set('port', process.env.port || 3000);
 //middlewares
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
-app.use(multer({dest: path.join(__dirname,'IMGFolder')}).single('image'));
+
+
+
 const storage = multer.diskStorage({
     destination: path.join(__dirname,'IMGFolder'),
     filename:(rew, file, cb, filename)=>{
-        cb(null, uuid.v4()+ path.extname(file.originalname));
+        cb(null, uuid.v4() + path.extname(file.originalname));
     }
 });
 
+app.use(multer({
+    storage: storage
+}).single('image'));
 
 // GLobal variables
 

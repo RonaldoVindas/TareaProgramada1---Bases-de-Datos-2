@@ -1,11 +1,6 @@
 const { Router } = require('express');
-const passport = require('passport');
-const cookieParser = require('cookie-parser');
-const session = require('express-session')
 const router = Router();
 const express = require('express');
-const { JSONCookie } = require('cookie-parser');
-const PassportLocal = require('passport-local').Strategy;
 const imageToBlob = require( 'image-to-blob' );
 const multer = require('multer');
 const { path } = require('express/lib/application');
@@ -15,34 +10,14 @@ const { default: mongoose } = require('mongoose');
 const mysqldb = require('../ConexionServidoresBasesDatos/MySQL/MysqlConnect');
 const mongodb = require('../ConexionServidoresBasesDatos/MongoDb/MongodbConnect');
 const neo4jdb = require('../ConexionServidoresBasesDatos/Neo4J/Neo4jConnect');
+const passport = require('passport');
 
 var userEmail;
 var userPassword;
 
 
 const upload = multer({storage: multer.memoryStorage()});
-/*
-router.use(express.urlencoded({extended: true}));
 
-router.use(cookieParser('secret'));
-
-router.use(cookieParser({
-    secret: 'secret',
-    resave: true,
-    saveUnitialized: true
-
-}))
-
-router.use(passport.initialize());
-router.use(passport.session());
-/*passport.use(new PassportLocal( 
-        function (username, password, done){
-            if(username == mysqldb.ExistsUserEmail(username) && password == mysqldb.)
-        }
-))*/
-
-
-////////////////////
 
 
 router.get('/', (req, res)=> {
@@ -57,10 +32,12 @@ router.get('/login', (req, res)=> {
 
 });
 
-router.post('/login', (req, res)=> {
-    console.log(req.body);
-    res.redirect('/Home');
-});
+router.post('/login', passport.authenticate('local',{
+    
+    successRedirect: "/Home",
+
+    failureRedirect:  "/register"
+}));
 
 
 
@@ -85,19 +62,44 @@ router.get('/newpost', (req, res)=> {
 });
 
 router.post('/newpost', (req, res)=> {
-    mongodb.InsertPost('andrey192006@hotmail', ('/IMGFolder/'+ req.file.filename) || ('"') ,req.body.description,'1')
+    try{
+        mongodb.InsertPost('RONY@hotmail', ('/IMGFolder/'+ req.file.filename) || ('"') ,req.body.description,'1')
+        
+    }catch{mongodb.InsertPost('RONY@hotmail', '' ,req.body.description,'1')};
+    res.redirect('/Home');
 });
 
 
 
 router.get('/Home',  async(req, res)=> {
-    const images =  await mongodb.ShowPostSenderEmail('andrey192006@hotmail'); 
-    console.log(images)
+    const images =  await mongodb.ShowPostData(); 
     res.render('Home', { images: images });
 
 });
 
+router.get('/myechos',  async(req, res)=> {
+    const images =  await mongodb.ShowPostSenderEmail('andrey192006@hotmail'); 
+    res.render('myechos', { images: images });
 
+});
+
+
+router.get('/editechos/:id', async(req, res)=> {
+    const { id } = req.params;
+   const image = await mongodb.ShowPostID(id);
+   res.render('editechos', { image: image } );
+    
+
+});
+
+router.post('/editechos/:id/text', (req, res)=> {
+    
+    mongodb.UpdatePostDescription(req.body.id, req.body.description)
+    res.redirect('/myechos');
+   
+
+});
+/*
 
 router.get('/profile/', (req, res)=> {
     res.send('luego del login');
@@ -121,6 +123,6 @@ router.get('/friend-request/', (req, res)=> {
     res.send('luego del login');
 
 });
-
+*/
 
 module.exports = router;

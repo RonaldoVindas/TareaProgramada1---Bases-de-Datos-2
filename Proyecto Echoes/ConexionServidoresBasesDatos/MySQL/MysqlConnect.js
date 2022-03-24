@@ -10,7 +10,7 @@ var conexion = mysql.createConnection({
     host : 'localhost',
     database : 'po',
     user : 'root',
-    password : '2296',
+    password : '987654321',
 });
 
 conexion.connect(function(err) {

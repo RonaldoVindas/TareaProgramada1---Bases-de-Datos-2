@@ -8,80 +8,87 @@
 <!--     CDN REQUIREMENTS  -->
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css"
-      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
 <!--     STYLE CSSS  -->
 <style>
-.card-tamaño-pequeño{
-  
-  display: block;
-    width: 50%;
+  .card-tamaño-pequeño {
+
+    display: block;
+    width: 100%;
     height: 50%;
-}
 
-.sidenav {
-  float: right;
+  }
 
-  height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 160px; /* Set the width of the sidebar */
-  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  z-index: 1; /* Stay on top */
-  
-  left: 0;
-  background-color: #005262; /* Black */
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 20px;
-}
+  .sidenav {
+    float: right;
 
-/* The navigation menu links */
-.sidenav a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #ffffff;
-  display: block;
-}
+    height: 100%;
+    /* Full-height: remove this if you want "auto" height */
+    width: 160px;
+    /* Set the width of the sidebar */
+    position: fixed;
+    /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1;
+    /* Stay on top */
 
-/* When you mouse over the navigation links, change their color */
-.sidenav a:hover {
-  color: #2BC7DE;
-}
+    left: 0;
+    background-color: #005262;
+    /* Black */
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    padding-top: 20px;
+  }
 
-/* Style page content */
-.main {
-  margin-left: 160px; /* Same as the width of the sidebar */
-  padding: 0px 10px;
-}
+  /* The navigation menu links */
+  .sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #ffffff;
+    display: block;
+  }
 
-/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+    color: #2BC7DE;
+  }
 
+  /* Style page content */
+  .main {
+    margin-left: 160px;
+    /* Same as the width of the sidebar */
+    padding: 0px 10px;
+  }
 
+  /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidenav {
+      padding-top: 15px;
+    }
+
+    .sidenav a {
+      font-size: 18px;
+    }
+  }
 </style>
 
 <!--     CABECERA -->
+
 <head>
-          <nav class="sticky-top navbar navbar-light bg-info ">
-          <div style="text-align: left;">&nbsp; <img src="views\WebsiteImages\delfines.png"
-    
-              alt="" title="Logo" style="width: 67px; height: 67px;"><a class="navbar-brand text-light"
-    
-              href="#">&nbsp; Echoes </a></div>
-          <div class="collapse navbar-collapse" id="navbarNav"><a class="navbar-brand text-light"
-    
-              href="#"> </a>
-            <ul class="navbar-nav">
-              <a class="navbar-brand text-light" href="#"> </a>
-              <li class="nav-item active"><a class="navbar-brand text-light" href="#">
-                </a><a class="nav-link" href="#">Profile</a> </li>
-            </ul>
-          </div>
-        </nav>
+  <nav class="sticky-top navbar navbar-light bg-info ">
+    <div style="text-align: left;">&nbsp; <img src="views\WebsiteImages\delfines.png" alt="" title="Logo"
+        style="width: 67px; height: 67px;"><a class="navbar-brand text-light" href="#">&nbsp; Echoes </a></div>
+    <div class="collapse navbar-collapse" id="navbarNav"><a class="navbar-brand text-light" href="#"> </a>
+      <ul class="navbar-nav">
+        <a class="navbar-brand text-light" href="#"> </a>
+        <li class="nav-item active"><a class="navbar-brand text-light" href="#">
+          </a><a class="nav-link" href="#">Profile</a> </li>
+      </ul>
+    </div>
+  </nav>
 
 </head>
 
@@ -89,40 +96,53 @@
 <!-- CUERPO -->
 
 <body style="background-color:#DCD1CA">
-<!-- Side navigation -->
-<div class="sidenav">
-  <a href="#"><img src="views\WebsiteImages\001-loupe.png">  Search</a>
-  <a href="#"><img src="views\WebsiteImages\003-user.png">   Profile</a>
-  <a href="#"><img src="views\WebsiteImages\002-high-five.png">   Friends</a>
-  <a href="#"><img src="views\WebsiteImages\002-network.png"> Friend Requests</a>
-  <a class="btn btn-info" href="#" role="button">Create a New Echo!</a>
-</div>
+  <!-- Side navigation -->
+  <div class="sidenav">
+    <a href="/myechos"><img src="views\WebsiteImages\001-loupe.png"> My Echoes</a>
+    <a href="#"><img src="views\WebsiteImages\001-loupe.png"> Search</a>
+    <a href="#"><img src="views\WebsiteImages\003-user.png"> Profile</a>
+    <a href="#"><img src="views\WebsiteImages\002-high-five.png"> Friends</a>
+    <a href="#"><img src="views\WebsiteImages\002-network.png"> Friend Requests</a>
+    <a class="btn btn-info" href="/newpost" role="button">Create a New Echo!</a>
+  </div>
 
-<div class="d-flex flex-row"></div>
-    
+  <div class="d-flex flex-row"></div>
 
-    <div class="container p-4 card-tamaño-pequeño"> <!--container-md mt-3 border -->
-        <div class="row">
-            <div class="card-rows " >
-                <% images.forEach(function (image) { %>
-                          <h1 class="animate__animated animate__fadeInDown"><div class="card card-tamaño-pequeño">
-                                          <div class="card bg-info text-white">
 
-                                       <p><h6> <img src="views\WebsiteImages\004-wall-clock-1.png">  <%= format(image.date) %></h6></p>   
-                                    <img src="<%= image.path %>" class="card-img-bottom ">
-                                  <a href="/editpost/<%= image._id %>"  class="btn btn-primary"></a>
-                                      <p class="card-text "> <h6><%= image.description %></h6> </p>
-                                                             </div>
-                         </h1>   
-                         <% }) %>   
-             </div>  
-        
+  <div class="container p-4 card-tamaño-pequeño">
+    <!--container-md mt-3 border -->
+    <div class="row">
+      <div class="col-md-4 offset-md-3">
+        <div class="card-rows ">
+          <% images.forEach(function (image) { %>
+            <h1 class="animate__animated animate__fadeInDown">
+              <div class="card card-tamaño-pequeño">
+                <div class="card bg-info text-white">
+
+                  <p>
+                  <h6> <img src="views\WebsiteImages\004-wall-clock-1.png">
+                    <%= format(image.date) %>
+                  </h6>
+                  <h6>
+                    <%= image.description %>
+                  </h6>
+                  </p>
+                  <img src="<%= image.path %>" class="card-img-bottom ">
+                  <!--<a href="/editpost/<%= image._id %>" class="btn btn-primary"> Edit Echo </a>-->
+                  <p class="card-text ">
+
+                  </p>
+                </div>
+            </h1>
+            <% }) %>
+        </div>
+      </div>
     </div>
-    </div>
-</div>
-</div>
+  </div>
+  </div>
+  </div>
 
-    
+
 
 
 </body>

@@ -1,11 +1,11 @@
 mongoose = require('mongoose');
 const MongoDB_URI = 'mongodb://127.0.0.1:27017/Post';
 
-mongoose.connect(MongoDB_URI,{
+mongoose.connect(MongoDB_URI, {
 })
 
-.then(db => console.log('MongoDB Successfully Connected'))
-.catch(err => console.error(err));
+    .then(db => console.log('MongoDB Successfully Connected'))
+    .catch(err => console.error(err));
 
 const PostSchema = new mongoose.Schema({
     senderEmail: String,
@@ -22,67 +22,73 @@ const PostModel = mongoose.model('Post', PostSchema);
 ///Traer todo del documento:
 
 
-    const ShowPostData = async() => {
-        const posts = await PostModel.find()
-        console.log(posts);
-    };
+const ShowPostData = async () => {
+    const posts = await PostModel.find().sort({ date: -1 });
+    return posts;
+};
 
-    const ShowPostSenderEmail = async(pSender) => {
-        const posts = await PostModel.find({ senderEmail: pSender}).exec();
-        return posts;
-    };
+const ShowPostSenderEmail = async (pSender) => {
+    const posts = await PostModel.find({ senderEmail: pSender }).sort({ date: -1 }).exec();
+    return posts;
+};
 
-
-    const ShowPostPath = async(pPath) => {
-        const posts = await PostModel.find({path: pPath}).exec();
-        console.log(posts);
-    };
-
-    const ShowPostDescription = async(pDescription) => {
-        const posts = await PostModel.find({ description: pDescription}).exec();
-        console.log(posts);
-    };
-
-    const ShowPostVisibility = async(pVisibility) => {
-        const posts = await PostModel.find({ visibility: pVisibility}).exec();
-        console.log(posts);
-    };
+const ShowPostID = async (p_id) => {
+    const posts = await PostModel.find({ _id: p_id }).exec();
+    return posts;
+};
 
 
-    const ShowPostDate = async(pDate) => {
-        const posts = await PostModel.find({ date: pDate}).exec();
-        console.log(posts);
-    };
+
+const ShowPostPath = async (pPath) => {
+    const posts = await PostModel.find({ path: pPath }).exec();
+    console.log(posts);
+};
+
+const ShowPostDescription = async (pDescription) => {
+    const posts = await PostModel.find({ description: pDescription }).exec();
+    console.log(posts);
+};
+
+const ShowPostVisibility = async (pVisibility) => {
+    const posts = await PostModel.find({ visibility: pVisibility }).exec();
+    console.log(posts);
+};
+
+
+const ShowPostDate = async (pDate) => {
+    const posts = await PostModel.find({ date: pDate }).exec();
+    console.log(posts);
+};
 
 
 ////Traer Campos específicos del documento:
 
 
-const GetPostSenderEmail = async(pId) => {
-    const posts = await PostModel.find({_id: pId}).project({senderEmail: 1}).exec();
+const GetPostSenderEmail = async (pId) => {
+    const posts = await PostModel.find({ _id: pId }).project({ senderEmail: 1 }).exec();
     console.log(posts);
 };
 
 
 
-const GetPostPath = async(pSender) => {
-    const posts = await PostModel.find({ senderEmail: pSender}).project({path: 1}).exec();
+const GetPostPath = async (pSender) => {
+    const posts = await PostModel.find({ senderEmail: pSender }).project({ path: 1 }).exec();
     console.log(posts);
 };
 
 
-const GetPostDescription = async(pSender) => {
-    const posts = await PostModel.find({senderEmail: pSender}).project({description: 1}).exec();
+const GetPostDescription = async (pSender) => {
+    const posts = await PostModel.find({ senderEmail: pSender }).project({ description: 1 }).exec();
     console.log(posts);
 };
 
-const GetPostvisibility = async(pSender) => {
-    const posts = await PostModel.find({senderEmail: pSender}).project({description: 1}).exec();
+const GetPostvisibility = async (pSender) => {
+    const posts = await PostModel.find({ senderEmail: pSender }).project({ description: 1 }).exec();
     console.log(posts);
 };
 
-const GetPostdate = async(pSender) => {
-    const posts = await PostModel.find({senderEmail: pSender}).project({description: 1}).exec();
+const GetPostdate = async (pSender) => {
+    const posts = await PostModel.find({ senderEmail: pSender }).project({ description: 1 }).exec();
     console.log(posts);
 };
 
@@ -91,22 +97,22 @@ const GetPostdate = async(pSender) => {
 
 
 
-function getValueForNextSequence(sequenceOfName){
-     
-        var sequenceDoc = PostModel.findAndModify({
-                query:{_id: sequenceOfName },
-                update: {$inc:{sequence_value:1}},
-                new:true
-            });
-     
-          return sequenceDoc.sequence_value;
-     }
-    
+function getValueForNextSequence(sequenceOfName) {
+
+    var sequenceDoc = PostModel.findAndModify({
+        query: { _id: sequenceOfName },
+        update: { $inc: { sequence_value: 1 } },
+        new: true
+    });
+
+    return sequenceDoc.sequence_value;
+}
 
 
 
 
-const InsertPost = async(pSender, pPath, pDescription, pVisibility) => {
+
+const InsertPost = async (pSender, pPath, pDescription, pVisibility) => {
     const Post = new PostModel({
 
         senderEmail: pSender,
@@ -126,14 +132,14 @@ const InsertPost = async(pSender, pPath, pDescription, pVisibility) => {
 ////////////////////////////////////////////////// CONEXION CON PROCEDIMIENTOS REMOVE DE MONGODB /////////////////////////////////////////////////////////////////////////
 
 
-const DeleteSpecificPost = async(pId, pSender) => {
-    const posts = await PostModel.deleteOne({ _id:pId, senderEmail: pSender });
+const DeleteSpecificPost = async (pId, pSender) => {
+    const posts = await PostModel.deleteOne({ _id: pId, senderEmail: pSender });
     console.log(posts);
 };
 
 
-const DeleteSpecificPost2= async(pSender) => {
-    const posts = await PostModel.deleteOne({senderEmail: pSender });
+const DeleteSpecificPost2 = async (pSender) => {
+    const posts = await PostModel.deleteOne({ senderEmail: pSender });
     console.log(posts);
 };
 
@@ -148,9 +154,9 @@ async function UpdatePostPath(pPostId, pSenderEmail, pPath) {
     console.log(posts);
 }
 
-async function UpdatePostDescription(pPostId, pSenderEmail, pDescription) {
+async function UpdatePostDescription(pPostId,  pDescription) {
 
-    const posts = await PostModel.findOneAndUpdate({ _id: pPostId, email: pSenderEmail }, { description: pDescription }, { new: true });
+    const posts = await PostModel.findOneAndUpdate({ _id: pPostId }, { description: pDescription }, { new: true });
 
     console.log(posts);
 }
@@ -171,5 +177,7 @@ async function UpdatePostDescription(pPostId, pSenderEmail, pDescription) {
 
 
 
-module.exports = {DeleteSpecificPost, DeleteSpecificPost2, GetPostPath, GetPostDescription, GetPostdate, GetPostSenderEmail, GetPostvisibility,
-InsertPost,ShowPostPath,ShowPostData,ShowPostDate,ShowPostDescription,ShowPostSenderEmail, ShowPostVisibility,UpdatePostPath,UpdatePostDescription}
+module.exports = {
+    DeleteSpecificPost, DeleteSpecificPost2,ShowPostID, GetPostPath, GetPostDescription, GetPostdate, GetPostSenderEmail, GetPostvisibility,
+    InsertPost, ShowPostPath, ShowPostData, ShowPostDate, ShowPostDescription, ShowPostSenderEmail, ShowPostVisibility, UpdatePostPath, UpdatePostDescription
+}
