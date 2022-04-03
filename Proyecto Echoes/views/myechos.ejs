@@ -100,7 +100,7 @@
   <div class="sidenav">
     <a href="/Home"><img src="views\WebsiteImages\001-loupe.png"> community echos</a>
     <a href="#"><img src="views\WebsiteImages\001-loupe.png"> Search</a>
-    <a href="#"><img src="views\WebsiteImages\003-user.png"> Profile</a>
+    <a href="/Profile/<%= email %>"><img src="views\WebsiteImages\003-user.png"> Profile</a>
     <a href="#"><img src="views\WebsiteImages\002-high-five.png"> Friends</a>
     <a href="#"><img src="views\WebsiteImages\002-network.png"> Friend Requests</a>
     <a class="btn btn-info" href="/newpost" role="button">Create a New Echo!</a>
@@ -120,7 +120,7 @@
                 <div class="card bg-info text-white">
 
                   <p>
-                  <h6> <img src="views\WebsiteImages\004-wall-clock-1.png">
+                  <h6> <img src="views\WebsiteImages\004-wall-clock-1.png" height="18" width="18">
                     <%= format(image.date) %>
                   </h6>
                   <h6>

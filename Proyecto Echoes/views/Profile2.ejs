@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--     CDN REQUIREMENTS  -->
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css"
+  integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<!--     STYLE CSSS  -->
+<style>
+    .card-tamaño-pequeño {
+  
+      display: block;
+      width: 100%;
+      height: 50%;
+  
+    }
+  
+    .sidenav {
+      float: right;
+  
+      height: 100%;
+      /* Full-height: remove this if you want "auto" height */
+      width: 160px;
+      /* Set the width of the sidebar */
+      position: fixed;
+      /* Fixed Sidebar (stay in place on scroll) */
+      z-index: 1;
+      /* Stay on top */
+  
+      left: 0;
+      background-color: #005262;
+      /* Black */
+      overflow-x: hidden;
+      /* Disable horizontal scroll */
+      padding-top: 20px;
+    }
+  
+    /* The navigation menu links */
+    .sidenav a {
+      padding: 6px 8px 6px 16px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #ffffff;
+      display: block;
+    }
+  
+    /* When you mouse over the navigation links, change their color */
+    .sidenav a:hover {
+      color: #2BC7DE;
+    }
+  
+    /* Style page content */
+    .main {
+      margin-left: 160px;
+      /* Same as the width of the sidebar */
+      padding: 0px 10px;
+    }
+  
+    /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+    @media screen and (max-height: 450px) {
+      .sidenav {
+        padding-top: 15px;
+      }
+  
+      .sidenav a {
+        font-size: 18px;
+      }
+    }
+  </style>
+
+
+
+<nav class="sticky-top navbar navbar-light bg-info ">
+  <div style="text-align: left;">&nbsp; <img src="/views\WebsiteImages\delfines.png" alt="" title="Logo"
+      style="width: 67px; height: 67px;"><a class="navbar-brand text-light" href="#">&nbsp; Echoes </a></div>
+  <div class="collapse navbar-collapse" id="navbarNav"><a class="navbar-brand text-light" href="#"> </a>
+    <ul class="navbar-nav">
+      <a class="navbar-brand text-light" href="#"> </a>
+      <li class="nav-item active"><a class="navbar-brand text-light" href="#">
+        </a><a class="nav-link" href="#">Profile</a> </li>
+    </ul>
+  </div>
+</nav>
+
+
+</head>
+<body>
+    
+
+
+
+    <div class="sidenav">
+        <a href="/myechos"><img src="/views\WebsiteImages\001-loupe.png"> My Echoes</a>
+        <a href="#"><img src="/views\WebsiteImages\001-loupe.png"> Search</a>
+        <a href="#"><img src="/views\WebsiteImages\003-user.png"> Profile</a>
+        <a href="#"><img src="/views\WebsiteImages\002-high-five.png"> Friends</a>
+        <a href="#"><img src="/views\WebsiteImages\002-network.png"> Friend Requests</a>
+        <a class="btn btn-info" href="/newpost" role="button">Create a New Echo!</a>
+      </div>
+
+
+    
+    
+
+      <div class="container mt-4 mb-4 p-3 d-flex justify-content-right">
+        <div class="card p-4">
+            <div class=" image d-flex flex-column justify-content-center align-items-center"> <button class="btn btn-secondary"> <img src="<%= photo%>" height="100" width="100" /></button> <span class="name mt-3"> <%= firstName%> <%= lastName%>   </span> <span class="idd"><%= email%></span>
+                <div class="d-flex flex-row justify-content-center align-items-center gap-2"> <span><i class="fa fa-copy"></i></span> </div>
+                <div class=" d-flex mt-2"> <button class="btn1 btn-dark">Add Friend!</button> </div>
+                <div class="text mt-3"> <span><%= description%><br></div>
+                <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"> <span><i class="fa fa-twitter"></i></span> <span><i class="fa fa-facebook-f"></i></span> <span><i class="fa fa-instagram"></i></span> <span><i class="fa fa-linkedin"></i></span> </div>
+                <div class=" px-2 rounded mt-4 date "> <span class="join"> BirthDay: <%= birthDay%></span> </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+</body>
+</html>

@@ -65,8 +65,9 @@ const ShowPostDate = async (pDate) => {
 
 
 const GetPostSenderEmail = async (pId) => {
-    const posts = await PostModel.find({ _id: pId }).project({ senderEmail: 1 }).exec();
-    console.log(posts);
+    const posts = await PostModel.find({ _id: pId }).select({senderEmail: 1, _id: 0}).exec();
+   
+    return posts[0].senderEmail;
 };
 
 
@@ -74,6 +75,7 @@ const GetPostSenderEmail = async (pId) => {
 const GetPostPath = async (pSender) => {
     const posts = await PostModel.find({ senderEmail: pSender }).project({ path: 1 }).exec();
     console.log(posts);
+
 };
 
 

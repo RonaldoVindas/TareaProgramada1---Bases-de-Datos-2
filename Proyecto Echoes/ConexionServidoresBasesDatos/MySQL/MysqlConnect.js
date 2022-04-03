@@ -10,7 +10,7 @@ var conexion = mysql.createConnection({
     host : 'localhost',
     database : 'po',
     user : 'root',
-    password : '987654321',
+    password : '2296',
 });
 
 conexion.connect(function(err) {
@@ -167,161 +167,199 @@ function RemoveUser1RequestUser2(pEmail1, pEmail2) {
 ////////////////////////////////////////////////// CONEXION CON FUNCIONES DE MYSQL /////////////////////////////////////////////////////////////////////////
 
 function GetUserFirstName(pEmail) {
-    conexion.query('SELECT Control_user_Getfirstname(?)', [pEmail], function (error, results, fields) {
-        if (error)
-        throw error;
-
-        results.forEach(result => {
-            console.log(result);
-        });
     
+    return new Promise((resolve, reject) => {
+        conexion.query('SELECT Control_user_Getfirstname(?) as data ', [pEmail],(err, result) => {
+        if (err) {
+          reject(err);
+        }
+        else {
+          resolve(result[0].data);
+          
+        }
+      });
     });
-}
+  }
 
-
+  
 function GetUserLastName(pEmail) {
-    conexion.query('SELECT Control_user_Getlastname(?)', [pEmail], function (error, results, fields) {
-        if (error)
-        throw error;
-
-    results.forEach(result => {
-        console.log(result);
-    });
+    return new Promise((resolve, reject) => {
+        conexion.query('SELECT Control_user_Getlastname(?) as data ', [pEmail],(err, result) => {
+        if (err) {
+          reject(err);
+        }
+        else {
+          resolve(result[0].data);
+          
+        }
+      });
     });
 }
 
 function GetUserBirthday(pEmail) {
-    conexion.query('SELECT Control_user_Getbirthday(?)', [pEmail], function (error, results, fields) {
-        if (error)
-        throw error;
-
-    results.forEach(result => {
-        console.log(result);
-    });
+    return new Promise((resolve, reject) => {
+        conexion.query('SELECT Control_user_Getbirthday(?) as data ', [pEmail],(err, result) => {
+        if (err) {
+          reject(err);
+        }
+        else {
+          resolve(result[0].data);
+          
+        }
+      });
     });
 }
 
 
 function GetUserGeneralDescription(pEmail) {
-    conexion.query('SELECT Control_user_Getgeneraldesdescription(?)', [pEmail], function (error, results, fields) {
-        if (error)
-        throw error;
-
-    results.forEach(result => {
-        console.log(result);
-    });
+    return new Promise((resolve, reject) => {
+        conexion.query('SELECT Control_user_Getgeneraldesdescription(?) as data ', [pEmail],(err, result) => {
+        if (err) {
+          reject(err);
+        }
+        else {
+          resolve(result[0].data);
+          
+        }
+      });
     });
 }
 
 
 function GetUserPassword(pEmail) {
-    conexion.query('SELECT Control_user_Getpassword(?)', [pEmail], function (error, results, fields) {
-        if (error)
-        throw error;
-
-    results.forEach(result => {
-        console.log(result);
-    });
+    return new Promise((resolve, reject) => {
+        conexion.query('SELECT Control_user_Getpassword(?) as data ', [pEmail],(err, result) => {
+        if (err) {
+          reject(err);
+        }
+        else {
+          resolve(result[0].data);
+          
+        }
+      });
     });
 }
 
 
 function GetUserPhoto(pEmail) {
-    conexion.query('SELECT Control_user_Getphoto(?)', [pEmail], function (error, results, fields) {
-        if (error)
-        throw error;
-
-    results.forEach(result => {
-        console.log(result);
-    });
+    return new Promise((resolve, reject) => {
+        conexion.query('SELECT Control_user_Getphoto(?) as data ', [pEmail],(err, result) => {
+        if (err) {
+          reject(err);
+        }
+        else {
+          resolve(result[0].data);
+          
+        }
+      });
     });
 }
 
 
 function GetUserVisibility(pEmail) {
-    conexion.query('SELECT Control_user_Getvisibility(?)', [pEmail], function (error, results, fields) {
-        if (error)
-        throw error;
-
-    results.forEach(result => {
-        console.log(result);
-    });
+    return new Promise((resolve, reject) => {
+        conexion.query('SELECT Control_user_Getvisibility(?) as data ', [pEmail],(err, result) => {
+        if (err) {
+          reject(err);
+        }
+        else {
+          resolve(result[0].data);
+          
+        }
+      });
     });
 }
 
 
 
 function GetIsFriendUser1(pEmail) {
-    conexion.query('SELECT Control_isfriend_Getuser1email(?)', [pEmail], function (error, results, fields) {
-        if (error)
-        throw error;
-
-    results.forEach(result => {
-        console.log(result);
-    });
+    return new Promise((resolve, reject) => {
+        conexion.query('SELECT Control_isfriend_Getuser1email(?) as data ', [pEmail],(err, result) => {
+        if (err) {
+          reject(err);
+        }
+        else {
+          resolve(result[0].data);
+          
+        }
+      });
     });
 }
 
 
 function GetIsFriendUser2(pEmail) {
-    conexion.query('SELECT Control_isfriend_Getuser2email(?)', [pEmail], function (error, results, fields) {
-        if (error)
-        throw error;
-
-    results.forEach(result => {
-        console.log(result);
-    });
+    return new Promise((resolve, reject) => {
+        conexion.query('SELECT Control_isfriend_Getuser2email(?) as data ', [pEmail],(err, result) => {
+        if (err) {
+          reject(err);
+        }
+        else {
+          resolve(result[0].data);
+          
+        }
+      });
     });
 }
 
 
 
 function GetRequestUser1(pEmail) {
-    conexion.query('SELECT Control_request_Getuser1email(?)', [pEmail], function (error, results, fields) {
-        if (error)
-        throw error;
-
-    results.forEach(result => {
-        console.log(result);
-    });
+    return new Promise((resolve, reject) => {
+        conexion.query('SELECT Control_request_Getuser1email(?) as data ', [pEmail],(err, result) => {
+        if (err) {
+          reject(err);
+        }
+        else {
+          resolve(result[0].data);
+          
+        }
+      });
     });
 }
 
 
 function GetRequestUser2(pEmail) {
-    conexion.query('SELECT Control_request_Getuser2email(?)', [pEmail], function (error, results, fields) {
-        if (error)
-        throw error;
-
-    results.forEach(result => {
-        console.log(result);
-    });
+    return new Promise((resolve, reject) => {
+        conexion.query('SELECT Control_request_Getuser2email(?) as data ', [pEmail],(err, result) => {
+        if (err) {
+          reject(err);
+        }
+        else {
+          resolve(result[0].data);
+          
+        }
+      });
     });
 }
 
 function ExistsUserEmail(pEmail) {
-    conexion.query('SELECT ExistsEmailInDatabase(?)', [pEmail], function (error, results, fields) {
-        if (error)
-        throw error;
-
-    results.forEach(result => {
-        console.log(result);
-    });
-    });
-}
-
-
-function EncryptString(pString) {
-    conexion.query('SELECT EncryptString(?)', [pString], function (error, results, fields) {
-        if (error)
-        throw error;
-
-    results.forEach(result => {
-        console.log(result);
-    });
+    return new Promise((resolve, reject) => {
+        conexion.query('SELECT ExistsEmailInDatabase(?) as data ', [pEmail],(err, result) => {
+        if (err) {
+          reject(err);
+        }
+        else {
+          resolve(result[0].data);
+          
+        }
+      });
     });
 }
 
+
+function EncryptString(pEmail) {
+    return new Promise((resolve, reject) => {
+        conexion.query('SELECT EncryptString(?) as data ', [pEmail],(err, result) => {
+        if (err) {
+          reject(err);
+        }
+        else {
+          resolve(result[0].data);
+          
+        }
+      });
+    });
+}
 
 
 
@@ -330,7 +368,7 @@ function EncryptString(pString) {
 
 module.exports = {GetIsFriendUser1, GetIsFriendUser2,GetRequestUser1,GetRequestUser2, GetUserBirthday, GetUserFirstName, GetUserFirstName, GetUserGeneralDescription, GetUserLastName, GetUserPassword, GetUserPhoto,
 GetUserPhoto, GetUserVisibility, InsertUser, InsertUser1IsFriendUser2, InsertUser1RequestUser2, RemoveUser, RemoveUser1IsFriendUser2, RemoveUser1RequestUser2,UpdateUserBirthday, UpdateUserFirstName, UpdateUserGeneralDescription,
-UpdateUserLastName, UpdateUserPassword, UpdateUserPhoto, UpdateUserVisibility, ExistsUserEmail};
+UpdateUserLastName, UpdateUserPassword, UpdateUserPhoto, UpdateUserVisibility, ExistsUserEmail,EncryptString};
 
 
 /*Probablemente necesite otra función para ecriptar strings y poder compararlos con las contraseñas encriptadas para el login*/

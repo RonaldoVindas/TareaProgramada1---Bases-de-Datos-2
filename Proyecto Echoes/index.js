@@ -1,10 +1,6 @@
 const mongodb = require('./ConexionServidoresBasesDatos/MongoDb/MongodbConnect.js');
-
 const mysqldb = require('./ConexionServidoresBasesDatos/MySQL/MysqlConnect.js');
-
 const neo4jdb = require('./ConexionServidoresBasesDatos/MySQL/MysqlConnect');
-
-
 
 
 
@@ -18,6 +14,9 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
 const PassportLocal = require('passport-local').Strategy;
+
+
+
 
 
 // Initializations
@@ -34,22 +33,30 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new PassportLocal(function(username,password,done) {
-    if(username == "andrey192006@hotmail" && password =="654321")
-    return (null,{ email: "andrey192006@hotmail" , name: "alvaro"});
 
+
+
+ passport.use(new PassportLocal(async function(username,password,done) {
+    if(username == await mysqldb.ExistsUserEmail(username) && await mysqldb.EncryptString(password) == await mysqldb.GetUserPassword(username)){
+            return done(null,{email: username});
+    }
     done(null,false);
 }));
 
+
+
+
 passport.serializeUser(function(user,done){
     done(null,user.email);
+});
+
+passport.deserializeUser( async function(email,done){
+    done(null,{email: await mysqldb.ExistsUserEmail(email)})
 
 });
 
-passport.deserializeUser(function(email,done){
-    done(null,{email: "andrey192006@hotmail" , name: "alvaro"})
 
-});
+
 
 
 
@@ -79,7 +86,6 @@ app.use(multer({
 // GLobal variables
 
 
-
 app.set('Front-end', path.join(__dirname, 'Front-end'));
 app.set('view engine', 'ejs');
 app.set('port', process.env.port || 3000);
@@ -92,18 +98,16 @@ app.use((req, res, next) => {
     next();
 });
 
-
-
-//Routes
-app.use(require('./Back-End/index'));
 // static files
 
 app.use(express.static(__dirname));
 
+//Routes
+app.use(require('./Back-End/index'));
+
 
 //start server
 const port = 3000
-
 
 app.listen(app.get('port'), () => {
     console.log('Server on port '+app.get('port'));
