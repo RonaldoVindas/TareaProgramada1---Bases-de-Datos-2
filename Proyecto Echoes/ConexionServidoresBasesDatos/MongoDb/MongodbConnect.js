@@ -23,7 +23,7 @@ const PostModel = mongoose.model('Post', PostSchema);
 
 
 const ShowPostData = async () => {
-    const posts = await PostModel.find().sort({ date: -1 });
+    var posts = await PostModel.find().sort({ date: -1 });
     return posts;
 };
 

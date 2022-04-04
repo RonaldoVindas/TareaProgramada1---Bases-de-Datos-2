@@ -15,7 +15,7 @@
 <!--     STYLE CSSS  -->
 <style>
   .card-tamaño-pequeño {
-
+    float: center;
     display: block;
     width: 100%;
     height: 50%;
@@ -73,23 +73,32 @@
       font-size: 18px;
     }
   }
+
+
+  .circular--square { border-radius: 50%; }
 </style>
 
 <!--     CABECERA -->
 
 <head>
-  <nav class="sticky-top navbar navbar-light bg-info ">
-    <div style="text-align: left;">&nbsp; <img src="views\WebsiteImages\delfines.png" alt="" title="Logo"
-        style="width: 67px; height: 67px;"><a class="navbar-brand text-light" href="#">&nbsp; Echoes </a></div>
-    <div class="collapse navbar-collapse" id="navbarNav"><a class="navbar-brand text-light" href="#"> </a>
-      <ul class="navbar-nav">
-        <a class="navbar-brand text-light" href="#"> </a>
-        <li class="nav-item active"><a class="navbar-brand text-light" href="#">
-          </a><a class="nav-link" href="#">Profile</a> </li>
-      </ul>
-    </div>
-  </nav>
+  
+ 
+    <nav class="sticky-top navbar navbar-light bg-info ">
+      <div style="text-align: left;">&nbsp; <img src="views\WebsiteImages\delfines.png" alt="" title="Logo"
+          style="width: 67px; height: 67px;"><a class="navbar-brand text-light" href="#">&nbsp; Echoes </a></div>
+          <a class="btn btn-danger" href="/exit" role="button"><img src="views\WebsiteImages\logout.png" width="25"  height="25"><p>Log Out</p></a>
+      <div class="collapse navbar-collapse" id="navbarNav"><a class="navbar-brand text-light" href="#"> </a>
+        <ul class="navbar-nav">
+          <a class="navbar-brand text-light" href="#"> </a>
+          <li class="nav-item active"><a class="navbar-brand text-light" href="#">
+            </a><a class="nav-link" href="#">Profile</a> </li>
+        </ul>
+      </div>
+    </nav>
 
+
+
+  
 </head>
 
 
@@ -102,9 +111,12 @@
     <a href="#"><img src="views\WebsiteImages\001-loupe.png"> Search</a>
     <a href="/Profile/<%= email %>"><img src="views\WebsiteImages\003-user.png"> Profile</a>
     <a href="#"><img src="views\WebsiteImages\002-high-five.png"> Friends</a>
-    <a href="#"><img src="views\WebsiteImages\002-network.png"> Friend Requests</a>
-    <a class="btn btn-info" href="/newpost" role="button">Create a New Echo!</a>
-    <a class="btn btn-danger" href="/exit" role="button">Logout</a>
+    <a href="/friend-request"><img src="views\WebsiteImages\002-network.png"> Friend Requests</a>
+    <p></p>
+    <a class="btn btn-info" href="/newpost" role="button"><img src="views\WebsiteImages\more.png" width="25"  height="25">  
+      <p>Create a New Echo!</p></a>
+      <p></p>
+    
   </div>
 
   <div class="d-flex flex-row"></div>
@@ -112,16 +124,21 @@
 
   <div class="container p-4 card-tamaño-pequeño">
     <!--container-md mt-3 border -->
-    <div class="row">
-      <div class="col-md-4 offset-md-3">
-        <div class="card-rows ">
+    <div class="row" >
+      <div class="col-md-4 offset-md-3" >
+        <div class="card-rows" style="width: 600px;">
+       
           <% images.forEach(function (image) { %>
             <h1 class="animate__animated animate__fadeInDown">
               <div class="card card-tamaño-pequeño">
-                <div class="card bg-info text-white">
-
-                  <p>
-  
+                <div class="card bg-info text-white" >
+                  
+                  <p> 
+                    <img class="circular--square" src="<%= image.profilePic%>"  width="64" 
+                    height="64"/> <font size="+0.6"><%= image.firstName %>  <%= image.lastName %> did an echo! </font> 
+                    
+                  </p>
+                  <a href="/Profile2/<%= image._id %>" class="btn btn-primary center btn-sm" > View Profile </a>
                   <h6> <img src="views\WebsiteImages\004-wall-clock-1.png" height="18" width="18" >
                     <%= format(image.date) %>
                   </h6>
@@ -130,7 +147,7 @@
                   </h6>
                   </p>
                   <img src="<%= image.path %>" class="card-img-bottom ">
-                  <a href="/Profile2/<%= image._id %>" class="btn btn-primary"> View Profile </a>
+                  
                   <!--<a href="/editpost/<%= image._id %>" class="btn btn-primary"> Edit Echo </a>-->
                   <p class="card-text ">
 

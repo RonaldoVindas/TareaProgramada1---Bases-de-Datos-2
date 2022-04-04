@@ -363,12 +363,28 @@ function EncryptString(pEmail) {
 
 
 
+function getUsersPostInfo(pEmail) {
+  return new Promise((resolve, reject) => {
+      conexion.query('SELECT first_name, last_name, photo FROM po.user Where email = ?', [pEmail],(err, result) => {
+      if (err) {
+        reject(err);
+      }
+      else {
+        resolve(result[0]);
+        
+      }
+    });
+  });
+}
+
+
+
 
 
 
 module.exports = {GetIsFriendUser1, GetIsFriendUser2,GetRequestUser1,GetRequestUser2, GetUserBirthday, GetUserFirstName, GetUserFirstName, GetUserGeneralDescription, GetUserLastName, GetUserPassword, GetUserPhoto,
 GetUserPhoto, GetUserVisibility, InsertUser, InsertUser1IsFriendUser2, InsertUser1RequestUser2, RemoveUser, RemoveUser1IsFriendUser2, RemoveUser1RequestUser2,UpdateUserBirthday, UpdateUserFirstName, UpdateUserGeneralDescription,
-UpdateUserLastName, UpdateUserPassword, UpdateUserPhoto, UpdateUserVisibility, ExistsUserEmail,EncryptString};
+UpdateUserLastName, UpdateUserPassword, UpdateUserPhoto, UpdateUserVisibility, ExistsUserEmail,EncryptString,getUsersPostInfo};
 
 
 /*Probablemente necesite otra función para ecriptar strings y poder compararlos con las contraseñas encriptadas para el login*/
@@ -382,6 +398,7 @@ UpdateUserLastName, UpdateUserPassword, UpdateUserPhoto, UpdateUserVisibility, E
 /*
 const testeo = GetUserFirstName('Maradona@gmail.com');
 console.log(testeo);
+
 
 */
 ///////////////////////////// NOTAS EXTRA ////////////////////////////////////////////////////////
@@ -404,3 +421,9 @@ UserSchema.methods.encryptPassword = async (password) => {
     return isPassword;
   };
 */
+
+
+/*
+setTimeout(async function () {
+  console.log( await GetRequestUser2('andrey192006@hotmail'))
+}, 1000);*/

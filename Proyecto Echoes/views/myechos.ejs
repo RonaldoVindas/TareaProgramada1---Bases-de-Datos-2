@@ -27,7 +27,7 @@
 
     height: 100%;
     /* Full-height: remove this if you want "auto" height */
-    width: 160px;
+    width: 250px;
     /* Set the width of the sidebar */
     position: fixed;
     /* Fixed Sidebar (stay in place on scroll) */
@@ -81,6 +81,7 @@
   <nav class="sticky-top navbar navbar-light bg-info ">
     <div style="text-align: left;">&nbsp; <img src="views\WebsiteImages\delfines.png" alt="" title="Logo"
         style="width: 67px; height: 67px;"><a class="navbar-brand text-light" href="#">&nbsp; Echoes </a></div>
+        <a class="btn btn-danger" href="/exit" role="button"><img src="/views\WebsiteImages\logout.png" width="25"  height="25"><p>Log Out</p></a>
     <div class="collapse navbar-collapse" id="navbarNav"><a class="navbar-brand text-light" href="#"> </a>
       <ul class="navbar-nav">
         <a class="navbar-brand text-light" href="#"> </a>
@@ -98,12 +99,16 @@
 <body style="background-color:#DCD1CA">
   <!-- Side navigation -->
   <div class="sidenav">
-    <a href="/Home"><img src="views\WebsiteImages\001-loupe.png"> community echos</a>
-    <a href="#"><img src="views\WebsiteImages\001-loupe.png"> Search</a>
-    <a href="/Profile/<%= email %>"><img src="views\WebsiteImages\003-user.png"> Profile</a>
-    <a href="#"><img src="views\WebsiteImages\002-high-five.png"> Friends</a>
-    <a href="#"><img src="views\WebsiteImages\002-network.png"> Friend Requests</a>
-    <a class="btn btn-info" href="/newpost" role="button">Create a New Echo!</a>
+    <a href="/Home"><img src="/views\WebsiteImages\001-loupe.png"> All Echoes</a>
+    <a href="#"><img src="/views\WebsiteImages\001-loupe.png"> Search</a>
+    <a href="/Profile/<%= email %>"><img src="/views\WebsiteImages\003-user.png"> Profile</a>
+    <a href="#"><img src="/views\WebsiteImages\002-high-five.png"> Friends</a>
+    <a href="/friend-request"><img src="/views\WebsiteImages\002-network.png"> Friend Requests</a>
+    <p></p>
+    <a class="btn btn-info" href="/newpost" role="button"><img src="/views\WebsiteImages\more.png" width="25"  height="25">  
+      <p>Create a New Echo!</p></a>
+      <p></p>
+    
   </div>
 
   <div class="d-flex flex-row"></div>
@@ -113,7 +118,7 @@
     <!--container-md mt-3 border -->
     <div class="row">
       <div class="col-md-4 offset-md-3">
-        <div class="card-rows ">
+        <div class="card-rows " style="width: 600px;">
           <% images.forEach(function (image) { %>
             <h1 class="animate__animated animate__fadeInDown">
               <div class="card card-tamaño-pequeño">

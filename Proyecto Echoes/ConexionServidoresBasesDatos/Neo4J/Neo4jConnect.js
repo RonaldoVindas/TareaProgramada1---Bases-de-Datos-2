@@ -37,7 +37,7 @@ const CreateHobbie = async(pName, pDescription) =>{
         await session.close()
     }
 
-    await driver.close()
+     
 
 
 
@@ -54,7 +54,7 @@ const CreateInterest = async(pName, pDescription) =>{
                                     { name: pName, description: pDescription})
 
     const singleRecord = result.records[0]
-    const node = singleRecord.get(0)
+    
 
     console.log("Interest succesfully added")
 
@@ -66,7 +66,7 @@ const CreateInterest = async(pName, pDescription) =>{
         await session.close()
     }
 
-    await driver.close()
+     
 
 }
 
@@ -91,7 +91,7 @@ const CreateComment = async( pDescription) =>{
         await session.close()
     }
 
-    await driver.close()
+     
     
 }
 
@@ -113,7 +113,7 @@ const CreateUser = async( pEmail) =>{
         await session.close()
     }
 
-    await driver.close()
+     
 
 }
 
@@ -136,7 +136,7 @@ const CreatePost = async( pId) =>{
         await session.close()
     }
 
-    await driver.close()
+     
 
 }
 
@@ -148,7 +148,7 @@ const CreatePost = async( pId) =>{
 const CreateUserHasHobbie = async( pUserEmail, pHobbieName) =>{
     const session = driver.session();
     try{
-    const result = await session.run('MATCH (u:User), (h:Hobbie) WHERE u.email = $email AND h.name = $name CREATE (u)-[:HasHobbie]->(h)',
+    const result = await session.run('MATCH (u:User), (h:Hobbie) WHERE u.email = $email AND h.name = $name CREATE (u)-[hs:HasHobbie]->(h) Return hs',
                                     {email: pUserEmail, name: pHobbieName })
     }catch(error){
             console.log("Error when relating Nodes.\nError: "+ error);
@@ -156,7 +156,7 @@ const CreateUserHasHobbie = async( pUserEmail, pHobbieName) =>{
             await session.close()
     }
 
-    await driver.close()
+    // 
     
 }
 
@@ -165,7 +165,7 @@ const CreateUserHasHobbie = async( pUserEmail, pHobbieName) =>{
 const CreateUserHasInterest = async( pUserEmail, pInterestName) =>{
     const session = driver.session();
     try{
-    const result = await session.run('MATCH (u:User), (i:Interest) WHERE u.email = $email AND i.name = $name CREATE (u)-[:HasInterest]->(i)',
+    const result = await session.run('MATCH (u:User), (i:Interest) WHERE u.email = $email AND i.name = $name CREATE (u)-[hi:HasInterest]->(i) Return hi',
                                     {email: pUserEmail, name: pInterestName })
     }catch(error){
             console.log("Error when relating Nodes.\nError: "+ error);
@@ -173,7 +173,7 @@ const CreateUserHasInterest = async( pUserEmail, pInterestName) =>{
             await session.close()
     }
 
-    await driver.close()
+     
     
 }
 
@@ -189,7 +189,7 @@ const CreatePostHasComment = async( pPostIde, pId) =>{
             await session.close()
     }
 
-    await driver.close()
+     
     
 }
 
@@ -205,7 +205,7 @@ const CreateCommentHasReplyComment = async( pCommentId1, pCommentId2) =>{
             await session.close()
     }
 
-    await driver.close()
+     
     
 }
 
@@ -222,7 +222,7 @@ const CreateUserDoComment = async( pUserEmail, pId) =>{
             await session.close()
     }
 
-    await driver.close()
+     
     
 }
 
@@ -235,7 +235,7 @@ const CreateUserDoComment = async( pUserEmail, pId) =>{
 async function GetAllHobbies(){
     const session = driver.session();
 
-    var res= {name:[],description:[]};
+    var res= {name:[]};
 
     try{
         const result = await session.run(
@@ -244,17 +244,15 @@ async function GetAllHobbies(){
 
         result.records.map( record => {
             res.name.push(record.get(0).properties.name);
-            res.description.push(record.get(0).properties.description);
-
+            
         })
-        console.log(res);
         return res;
     }catch (error){
         console.log(error);
     }finally{
-        await session.close()
+        //await session.close()
     }
-    await driver.close();
+    // ;
     
     return res;
 }
@@ -284,7 +282,7 @@ async function GetAllInterests(){
     }finally{
         await session.close()
     }
-    await driver.close();
+     ;
     
     return res;
 }
@@ -312,7 +310,7 @@ async function GetComment(pId){
     }finally{
         await session.close()
     }
-    await driver.close();
+     ;
     
     return res;
 }
@@ -340,10 +338,76 @@ async function GetCommentFromPost(pId){
     }finally{
         await session.close()
     }
-    await driver.close();
+     ;
     
     return res;
 }
+
+
+
+
+
+
+
+
+async function GetUserHobbies(pEmail){
+    const session = driver.session();
+
+    var res= {name:[]};
+
+    try{
+        const result = await session.run(
+            'MATCH (u: User {email: $email})-[:HasHobbie]->(h:Hobbie) RETURN h',
+            {email: pEmail }
+        )
+
+        result.records.map( record => {
+            res.name.push(record.get(0).properties.name);
+        })
+        console.log(res);
+        return res;
+    }catch (error){
+        console.log(error);
+    }finally{
+        await session.close()
+    }
+     ;
+    
+    return res;
+}
+
+
+
+
+async function GetUserInterests(pEmail){
+    const session = driver.session();
+
+    var res= {name:[]};
+
+    try{
+        const result = await session.run(
+            'MATCH (u: User {email: $email})-[:HasInterest]->(i:Interest) RETURN i',
+            {email: pEmail }
+        )
+
+        result.records.map( record => {
+            res.name.push(record.get(0).properties.name);
+        })
+        console.log(res);
+        return res;
+    }catch (error){
+        console.log(error);
+    }finally{
+        await session.close()
+    }
+     ;
+    
+    return res;
+}
+
+
+
+
 
 
 
@@ -360,7 +424,7 @@ const DeleteUser = async(pUserEmail) =>{
             await session.close()
     }
 
-    await driver.close()
+     
     
 }
 
@@ -377,7 +441,7 @@ const DeletePostbyLabelId = async(pPostId) =>{
             await session.close()
     }
 
-    await driver.close()
+     
     
 }
 
@@ -396,7 +460,7 @@ const DeletePostbyGeneratedId = async(pPostId) =>{
             await session.close()
     }
 
-    await driver.close()
+     
     
 }
 
@@ -414,7 +478,7 @@ const DeleteCommentbyGeneratedId = async(pPostId) =>{
             await session.close()
     }
 
-    await driver.close()
+     
     
 }
 
@@ -431,7 +495,7 @@ const DeleteHobbie = async(pName) =>{
             await session.close()
     }
 
-    await driver.close()
+     
     
 }
 
@@ -447,7 +511,7 @@ const DeleteInterest = async(pName) =>{
             await session.close()
     }
 
-    await driver.close()
+     
     
 }
 
@@ -455,15 +519,25 @@ const DeleteInterest = async(pName) =>{
 module.exports = {CreateComment, CreateHobbie, CreateInterest, CreateUser, CreatePost,
                   CreateUserHasHobbie,CreateCommentHasReplyComment,CreatePostHasComment,CreateUserDoComment,CreateUserHasInterest,
                   GetAllHobbies, GetAllInterests,GetComment,GetCommentFromPost, 
-                  DeleteUser, DeletePostbyLabelId, DeleteCommentbyGeneratedId, DeleteHobbie, DeleteInterest}
+                  DeleteUser, DeletePostbyLabelId, DeleteCommentbyGeneratedId, DeleteHobbie, DeleteInterest,GetUserHobbies,GetUserInterests}
 
 
 ///////////////////////////TEST
 
 //CreateComment('Maradona es mejor que CR7');
-//CreateUser('alvaro@gmail.com');
-//CreateHobbie('Futbol', 'Futbol Soccer');
-//CreateInterest('Astronomía', 'Observación de cuerpos celestes');
+//CreateUser('andrey192006@hotmail');
+
+//CreateHobbie('Videogames', 'Play Videogames');
+//CreateHobbie('Food', 'Eating Food');
+//CreateHobbie('Sleep', 'Sleep all I can');
+//CreateHobbie('Food', 'Eating Food');
+//CreateHobbie('BasketBall', 'Play BasketBall');
+
+//CreateInterest('Sports', 'Athlete');
+//CreateInterest('Animals', 'Animal species');
+//CreateInterest('Travel', 'Going Places');
+//CreateInterest('Vehicles', 'Racing, Mechanic and Engines');
+
 
 //CreatePost(101);
 //GetCommentFromPost(1);
@@ -474,7 +548,6 @@ module.exports = {CreateComment, CreateHobbie, CreateInterest, CreateUser, Creat
 
 //CreateCommentHasReplyComment(30,33);
 //GetComment(30);
-
 //GetAllHobbies();
 //CreateUser('gallina@gmail.com')
 //CreateUserHasHobbie('gallina@gmail.com', 'Videojuegos')
@@ -482,9 +555,9 @@ module.exports = {CreateComment, CreateHobbie, CreateInterest, CreateUser, Creat
 //CreateComment("Este es un comentario de prueba, puedo agregar lo que quiera");
 //CreateUserDoComment('gallina@gmail.com', 15);
 
-//DeleteUser('rony1211@gmail.com');
 
-//DeleteHobbie('Futbol');
+//DeleteHobbie('Videojuegos');
+//DeleteHobbie('Soccer');
 //DeleteInterest('Astronomía');
 //DeleteCommentbyGeneratedId(30);
 //DeletePostbyGeneratedId(38);
